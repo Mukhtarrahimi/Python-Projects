@@ -1,6 +1,22 @@
 import random
 import time
 
+def select_difficulty():
+    print("Select your difficulty level:")
+    print("1. Easy")
+    print("2. Medium")
+    print("3. Hard")
+    while True:
+        choice = int(input("Enter your choice (1/2/3): "))
+        if choice == 1:
+            return (1,10)
+        elif choice == 2:
+            return (1, 100)
+        elif choice == 3:
+            return (1, 1000)
+        else:
+            print("Invalid choice. Please enter 1, 2 or 3.")
+            
 def generate_question():
     number1 = random.randint(1, 100)
     number2 = random.randint(1, 100)
@@ -40,5 +56,6 @@ for i in range(question_count):
     except:
         print("Invalid input. Please enter a number.")
         continue
+
 
   
