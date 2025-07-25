@@ -17,9 +17,9 @@ def select_difficulty():
         else:
             print("Invalid choice. Please enter 1, 2 or 3.")
             
-def generate_question():
-    number1 = random.randint(1, 100)
-    number2 = random.randint(1, 100)
+def generate_question(min_val, max_val):
+    number1 = random.randint(min_val, max_val)
+    number2 = random.randint(min_val, max_val)
     operation = random.choice(['+', '-', '*', '/'])
     print(f"Question: What is {number1} {operation} {number2}?")
     if operation == '+':
