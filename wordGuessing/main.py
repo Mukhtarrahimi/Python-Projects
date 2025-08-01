@@ -1,11 +1,42 @@
 import random
+
 names = ["Rahimi", "Akbari", "Hussaini", "Mohammadi", "Ahmadi",
-         "Mandegar", "Hassani", "Jafari","Qasimi", "Alizada",
+         "Mandegar", "Hassani", "Jafari", "Qasimi", "Alizada",
          "Amiri", "Nazari", "Rezaie", "Hashimi", "Rasuli", "Rahmani"]
 
 select_name = random.choice(names).lower()
-guess_list = [' - ']* len(select_name)
-current_guess = " ".join(select_name)
+guess_list = ['-' for _ in select_name]
 guess_count = len(select_name)
+guessed_chars = set()
 
+print("Guess the name!")
 
+while guess_count > 0:
+    print("Current word:", " ".join(guess_list))
+    guess_char = input("Enter a character: ").lower()
+
+    if not guess_char.isalpha() or len(guess_char) != 1:
+        print("Invalid input. Enter one alphabet letter.")
+        continue
+
+    if guess_char in guessed_chars:
+        print("You already guessed that character.")
+        continue
+
+    guessed_chars.add(guess_char)
+
+    if guess_char in select_name:
+        for i, char in enumerate(select_name):
+            if char == guess_char:
+                guess_list[i] = guess_char
+        print("Correct guess!")
+
+        if '-' not in guess_list:
+            print("You win! The name was:", select_name.capitalize())
+            break
+    else:
+        guess_count -= 1
+        print(f"Wrong! Remaining guesses: {guess_count}")
+
+else:
+    print("You lost! The correct name was:", select_name.capitalize())
