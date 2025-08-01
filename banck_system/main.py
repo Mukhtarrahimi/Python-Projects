@@ -34,6 +34,10 @@ class BankAccount:
         self.is_active = True
         print("Account activated successfully.")
         
+    def deactivate_account(self):
+        self.is_active = False
+        print("Account deactivated successfully.")
+        
         
             
             
