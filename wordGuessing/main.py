@@ -1,8 +1,21 @@
 import random
 
-names = ["Rahimi", "Akbari", "Hussaini", "Mohammadi", "Ahmadi",
-         "Mandegar", "Hassani", "Jafari", "Qasimi", "Alizada",
-         "Amiri", "Nazari", "Rezaie", "Hashimi", "Rasuli", "Rahmani"]
+easy_names = [
+    "Ali", "Omid", "Sara", "Lina", "Nima", "Mina",
+    "Amir", "Sina", "Yara", "Reza", "Zara", "Tara",
+    "Hani", "Sami", "Roya", "Nazi"
+]
+medium_names = [
+    "Rahimi", "Akbari", "Hassani", "Rasouli", "Nazari", "Hashimi",
+    "Karimi", "Qasimi", "Alizada", "Mohseni", "Ahmadi", "Jafari",
+    "Mandegar", "Amiri", "Hussaini", "Rezaian"
+]
+hard_names = [
+    "Mohammadi", "Abdolrahim", "Ghaznavian", "Mostafavi", 
+    "Sadatkhani", "Abdulkarim", "Charkhgard", "Etemadian", 
+    "Darvishian", "Soleymani", "Farrokhzad", "Tavakkolian"
+]
+
 
 select_name = random.choice(names).lower()
 guess_list = ['-' for _ in select_name]
