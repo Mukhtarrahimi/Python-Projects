@@ -30,5 +30,10 @@ class BankAccount:
         else:
             print("Account is inactive. Please activate the account first.")
             
+    def activate_account(self):
+        self.is_active = True
+        print("Account activated successfully.")
+        
+        
             
             
