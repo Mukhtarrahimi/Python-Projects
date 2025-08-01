@@ -1,17 +1,21 @@
 class BankAccount:
-    def __init__(self, owner_name, account_number, balance, account_type, __pin_code, is_acctive):
+    def __init__(self, owner_name, account_number, balance, account_type, pin_code, is_active):
         self.owner_name = owner_name
         self.account_number = account_number
         self.account_type = account_type
         self.balance = balance
-        self.__pin_code = __pin_code
-        self.is_acctive = is_acctive
+        self.__pin_code = pin_code
+        self.is_active = is_active
     
-    def show_infomation(self):
+    def show_information(self):
         print("Account Owner: ", self.owner_name)
         print("Account Number: ", self.account_number)
         print("Account Type: ", self.account_type)
         print("Account Balance: ", self.balance)
-        print("Account Status: ", self.is_acctive)
+        print("Account Status: ", self.is_active)
         
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            print("Deposit successful. New balance: ", self.balance)
         
