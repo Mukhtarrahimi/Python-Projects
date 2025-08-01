@@ -47,3 +47,18 @@ else:
 print(f'correct list of character you enter: {correct_char_list}')
 print(f'discorrect list of character you enter: {discorrect_char_list}')
 
+def menu():
+    print("Choose an degree option:")
+    print("1. Easy")
+    print("2. Medium")
+    print("3. Hard")
+    print("4. Quit")
+    chose = input("Enter your choice: ")
+    if chose == "1":
+        easy()
+    elif chose == "2":
+        medium()
+    elif chose == "3":
+        hard()
+    else:
+        print("Goodbye!")
