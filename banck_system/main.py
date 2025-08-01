@@ -18,4 +18,17 @@ class BankAccount:
         if amount > 0:
             self.balance += amount
             print("Deposit successful. New balance: ", self.balance)
+        else:
+            print("Invalid deposit amount. Please enter a positive number.")
         
+    def withdraw(self, amount):
+        if amount > 0 and amount <= self.balance and self.is_active:
+            self.balance -= amount
+            print("Withdrawal successful. New balance: ", self.balance)
+        elif amount > self.balance:
+            print("Insufficient balance.")
+        else:
+            print("Account is inactive. Please activate the account first.")
+            
+            
+            
