@@ -3,7 +3,7 @@ from cryptography.fernet import Fernet
 
 # write_key
 def write_key():
-    key = Fernet.generate_key()
+    key = Fernet.generate_key()  
     with open('./mykey.key', 'wb') as f:
         f.write(key)
 
