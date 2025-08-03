@@ -59,6 +59,6 @@ elif args['--update']:
             print("Nothing to update.")
     except ValueError:
         print("Invalid amount. Please enter a numeric value.")
-
-else:
+        
+else:         
     print(usage)
