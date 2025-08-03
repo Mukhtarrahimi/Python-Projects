@@ -26,3 +26,24 @@ def add(amount, category, message, date):
     })
     conn.commit()
     conn.close()
+    
+def show(category = None):
+    # show all expenses
+    if category:
+        c.execute("SELECT * FROM expenses WHERE category = (: category)", {
+            'category': category
+        })
+        results = c.fetchall()
+        c.execute("SELECT sum(amount) FROM expenses WHERE category = (: category)", {
+            'category': category
+        })
+        total_amount = c.fetchone()[0]
+        
+    else:
+        c.execute("SELECT * FROM expenses")
+        results = c.fetchall()
+        c.execute("SELECT sum(amount) FROM expenses")
+        total_amount = c.fetchone()[0]
+    return total_amount, results
+    conn.close()
+        
