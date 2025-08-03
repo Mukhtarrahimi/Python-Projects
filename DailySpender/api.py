@@ -19,7 +19,7 @@ def create_table():
 
 def add(amount, category, message, date=None):
     if date is None:
-        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
     conn = get_connection()
     c = conn.cursor()
     c.execute("INSERT INTO expenses VALUES (?, ?, ?, ?)", (amount, category, message, date))
@@ -41,3 +41,48 @@ def show(category=None):
         total_amount = c.fetchone()[0] or 0
     conn.close()
     return total_amount, results
+
+def remove(amount, category, message=None):
+    conn = get_connection()
+    c = conn.cursor()
+    if message:
+        c.execute(
+            "DELETE FROM expenses WHERE amount = ? AND category = ? AND message = ? LIMIT 1",
+            (amount, category, message)
+        )
+    else:
+        c.execute(
+            "DELETE FROM expenses WHERE amount = ? AND category = ? LIMIT 1",
+            (amount, category)
+        )
+    conn.commit()
+    conn.close()
+
+def update(amount_old, category_old, amount_new=None, category_new=None, message_new=None):
+    conn = get_connection()
+    c = conn.cursor()
+
+    updates = []
+    params = []
+
+    if amount_new is not None:
+        updates.append("amount = ?")
+        params.append(amount_new)
+    if category_new is not None:
+        updates.append("category = ?")
+        params.append(category_new)
+    if message_new is not None:
+        updates.append("message = ?")
+        params.append(message_new)
+
+    if not updates:
+        conn.close()
+        return False  
+
+    params.extend([amount_old, category_old])
+
+    sql = f"UPDATE expenses SET {', '.join(updates)} WHERE amount = ? AND category = ? LIMIT 1"
+    c.execute(sql, params)
+    conn.commit()
+    conn.close()
+    return True
