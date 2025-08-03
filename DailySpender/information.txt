@@ -1,0 +1,106 @@
+# Expense Manager CLI Application
+
+This is a simple command-line expense manager built with Python and SQLite.  
+You can add, show, remove, and update your daily expenses easily.
+
+---
+
+## Requirements
+
+- Python 3.x installed  
+- Modules: docopt, tabulate  
+  You can install them via pip:
+
+pip install docopt tabulate
+
+---
+
+## Files
+
+- api.py: Contains all database functions (create table, add, show, remove, update expenses).  
+- spend_app.py: The command-line interface that interacts with the user and calls api.py functions.
+
+---
+
+## How to Run
+
+Open a terminal or command prompt in the project folder and follow these steps:
+
+### 1. Initialize the database
+
+This creates the database file and the expenses table:
+
+python spend_app.py --init
+
+You should see:
+
+Your table has been initialized.
+
+---
+
+### 2. Add expenses
+
+Add new expense records using:
+
+python spend_app.py --add <amount> <category> [message]
+
+Example:
+
+python spend_app.py --add 15.5 food "Lunch at cafe"  
+python spend_app.py --add 10 transport
+
+---
+
+### 3. Show expenses
+
+Show all expenses:
+
+python spend_app.py --show
+
+Show expenses filtered by category:
+
+python spend_app.py --show food
+
+---
+
+### 4. Remove expenses
+
+Remove an expense by amount, category, and optionally message:
+
+python spend_app.py --remove <amount> <category> [message]
+
+Example:
+
+python spend_app.py --remove 15.5 food "Lunch at cafe"
+
+---
+
+### 5. Update expenses
+
+Update an existing expense by specifying old amount and category, and new values to update:
+
+python spend_app.py --update <old_amount> <old_category> [--new-amount=<new_amount>] [--new-category=<new_category>] [--new-message=<new_message>]
+
+Example:
+
+python spend_app.py --update 15.5 food --new-amount=16 --new-message="Lunch with friend"
+
+---
+
+## Notes
+
+- Amount values must be numeric (decimals allowed).  
+- Messages are optional and can be left empty.  
+- The database is stored in database.db file in the same folder.  
+- Make sure to enter the exact old values when removing or updating expenses.
+
+---
+
+## Summary
+
+This project provides a simple way to keep track of your daily expenses from the command line.  
+You can extend this project by adding more features like reports, categories management, or a GUI.
+
+---
+
+If you have any questions, feel free to ask!
