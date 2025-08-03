@@ -3,30 +3,32 @@ from tabulate import tabulate
 from api import *
 
 usage = '''
-usage:
+Usage:
     spend_app.py --init
     spend_app.py --show [<category>]
-    spend_app.py --add <category> [<message>]
-    
+    spend_app.py --add <amount> <category> [<message>]
 '''
 
 args = docopt(usage)
 
-if args ['--init']:
+if args['--init']:
     create_table()
-    print('Your Table has been initialized')
-if args ['--show']:
+    print('Your table has been initialized.')
+
+elif args['--show']:
     category = args['<category>']
-    amount, results = show(category)
-    print(f'Total expenses: {amount}')
-    print(tabulate(results, headers=['Date', 'Amount', 'Message'], tablefmt='orgtbl'))
-    
-if args ['--add']:
+    total, records = show(category)
+    print(f'Total expenses: {total}')
+    print(tabulate(records, headers=['Date', 'Amount', 'Message'], tablefmt='orgtbl'))
+
+elif args['--add']:
     try:
-        amount = float(args['<category>'])
-        add(amount, args['<category>'], args['<message>'])
-        print('Expense added successfully')
-    except :
-        print(usage)
-        
-        
+        amount = float(args['<amount>'])
+        category = args['<category>']
+        message = args['<message>'] if args['<message>'] else ''
+        add(amount, category, message)
+        print('Expense added successfully.')
+    except ValueError:
+        print("Invalid amount. Please enter a numeric value.")
+else:
+    print(usage)

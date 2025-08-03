@@ -1,49 +1,43 @@
-import sqlite3 as db
+import sqlite3
 import datetime
-conn = db.connect('database.db')
-c = conn.cursor()
+
+def get_connection():
+    return sqlite3.connect('database.db')
 
 def create_table():
-    # intial database
-    c.execute('''CREATE TABLE IS NOT EXISTS expenses (
+    conn = get_connection()
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS expenses (
                  amount REAL,
                  category TEXT COLLATE NOCASE,
                  message TEXT,
                  date TEXT
                  )
-                 ''')
+              ''')
     conn.commit()
     conn.close()
-    
-def add(amount, category, message, date):
-    # add to database
-    date = str(datetime.now().strftime('%y - %m - %d | %H:%M'))
-    c.execute("INSERT INTO expenses VALUES (:amount, :category, :message , :date)", {
-        'amount': amount,
-        'category': category,
-        'message': message,
-        'date': date
-    })
+
+def add(amount, category, message, date=None):
+    if date is None:
+        date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    conn = get_connection()
+    c = conn.cursor()
+    c.execute("INSERT INTO expenses VALUES (?, ?, ?, ?)", (amount, category, message, date))
     conn.commit()
     conn.close()
-    
-def show(category = None):
-    # show all expenses
+
+def show(category=None):
+    conn = get_connection()
+    c = conn.cursor()
     if category:
-        c.execute("SELECT * FROM expenses WHERE category = (: category)", {
-            'category': category
-        })
+        c.execute("SELECT date, amount, message FROM expenses WHERE category = ?", (category,))
         results = c.fetchall()
-        c.execute("SELECT sum(amount) FROM expenses WHERE category = (: category)", {
-            'category': category
-        })
-        total_amount = c.fetchone()[0]
-        
+        c.execute("SELECT sum(amount) FROM expenses WHERE category = ?", (category,))
+        total_amount = c.fetchone()[0] or 0
     else:
-        c.execute("SELECT * FROM expenses")
+        c.execute("SELECT date, amount, message FROM expenses")
         results = c.fetchall()
         c.execute("SELECT sum(amount) FROM expenses")
-        total_amount = c.fetchone()[0]
-    return total_amount, results
+        total_amount = c.fetchone()[0] or 0
     conn.close()
-        
+    return total_amount, results
